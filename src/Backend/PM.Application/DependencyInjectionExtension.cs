@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PM.Application.Services.AutoMapper;
+using PM.Application.Services.Cryptography;
 
 namespace PM.Application
 {
@@ -14,10 +16,10 @@ namespace PM.Application
 
         private static void AddAutoMapper(IServiceCollection services)
         {
-            //services.AddScoped(option => new AutoMapper.MapperConfiguration(options =>
-            //{
-            //    options.AddProfile(new AutoMapping());
-            //}).CreateMapper());
+            services.AddScoped(option => new AutoMapper.MapperConfiguration(options =>
+            {
+                options.AddProfile(new AutoMapping());
+            }).CreateMapper());
         }
 
         private static void AddUseCases(IServiceCollection services)
@@ -29,7 +31,7 @@ namespace PM.Application
         {
             var additionalKey = config.GetValue<string>("Settings:Password:AdditionalKey");
 
-            //services.AddScoped(option => new PasswordEncripter(additionalKey!));
+            services.AddScoped(option => new PasswordEncripter(additionalKey!));
         }
     }
 }
