@@ -1,5 +1,7 @@
 using PM.Web.Filters;
 using PM.Web.Middleware;
+using PM.Application;
+using PM.Infraestructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddMvc(options => options.Filters.Add(typeof(ExceptionFilter)));
+
+builder.Services.AddApplication(builder.Configuration);
+builder.Services.AddInfraestructure(builder.Configuration);
 
 var app = builder.Build();
 
